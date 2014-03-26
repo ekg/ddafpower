@@ -45,7 +45,7 @@ for item in union:
 ################################################################# 
 for line in open (myfiletostandardize, 'r'):
 	z=line.split()     
-    n = float(z[5])
+	n = float(z[5])
 	if not math.isnan(n) :     
 		print '%s\t%s' %(line.rstrip(), myrefdic[n]  ) 
 	else: print '%s\t%s' %(line.rstrip(), 'nan') 
