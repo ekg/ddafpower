@@ -3,6 +3,7 @@
 import sys 
 import numpy 
 import scipy.stats
+import math
 
 
 myreffile=sys.argv[1]
@@ -43,8 +44,9 @@ for item in union:
 ################################################################# 
 for line in open (myfiletostandardize, 'r'):
 	z=line.split()
-	if is_number(z[-1]) :     
-		print '%s\t%s' %(line.rstrip(), myrefdic[float(z[5])]  ) 
+    n = float(z[5])
+	if not math.isnan(n) :     
+		print '%s\t%s' %(line.rstrip(), myrefdic[n]  ) 
 	else: print '%s\t%s' %(line.rstrip(), 'nan') 
 
 
