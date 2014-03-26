@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 import sys 
 import numpy 
@@ -8,7 +8,7 @@ import scipy.stats
 myreffile=sys.argv[1]
 myfiletostandardize=sys.argv[2]
 
-##########################################################à
+##########################################################
 def is_number(s):
     try:
         float(s)
