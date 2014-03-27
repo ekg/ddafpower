@@ -15,14 +15,19 @@ s=float(sys.argv[2])
 h=float(sys.argv[3]) 
 t=float(sys.argv[4])
 r=sys.argv[5]
-outputdir=sys.argv[6]
+seqbp=int(sys.argv[6])
+outputdir=sys.argv[7]
  
-myinputparameters=(f,s,h,t,r)
+myinputparameters=(f,s,h,t,r,seqbp)
 
 myseed=random.randint(1, 999999) 
 ##############  myseed=819643
 Ne=10000; gentime=25
 time=t/float(gentime)/float(4*Ne)
+mutrate=1.2e-8
+theta=4*Ne*mutrate*seqbp
+recrate=1.6e-8
+rho=4*Ne*recrate*seqbp
 
 twoNes=2*Ne*s
 wAA=1+twoNes
@@ -30,7 +35,7 @@ wAa=1+(h*twoNes)
 waa=0
 
 tmp_dir = tempfile.mkdtemp()
-print tmp_dir
+#print tmp_dir
 
 myuniqname=(tmp_dir,  f*100,s*100,h*100,t/1000,r) 
 # msms sims gravel 
@@ -39,7 +44,7 @@ myuniqname=(tmp_dir,  f*100,s*100,h*100,t/1000,r)
 
 
 #THIS IS A TEST COMMAND LINE 
-cmdl0='msms -N %s -ms 1064 1 -seed %s  -t 2.40  -r 3.20 2500  -I 2 492  572 0  -n 1 1.4  -n 2 4.58 -g 2 192 -m 1 2 0.31  -m 2 1 0.31  -en 0.023 2 0.186100  -em 0.023000 1 2 6  -em 0.023000 2 1  6 -ej 0.051 2 1  -en 0.148 1 0.73100  -SI %s  2  %s  %s  -Smark -Sp 0.5 -Sc 0 2 %s %s  %s > %s/myout.%s.%s.%s.%s.%s.out' % (Ne ,myseed , time, f, f, wAA, wAa, waa, tmp_dir, f*100,s*100,h*100,t/1000,r )
+cmdl0='msms -N %s -ms 1064 1 -seed %s  -t %s  -r %s %s  -I 2 492  572 0  -n 1 1.4  -n 2 4.58 -g 2 192 -m 1 2 0.31  -m 2 1 0.31  -en 0.023 2 0.186100  -em 0.023000 1 2 6  -em 0.023000 2 1  6 -ej 0.051 2 1  -en 0.148 1 0.73100  -SI %s  2  %s  %s  -Smark -Sp 0.5 -Sc 0 2 %s %s  %s > %s/myout.%s.%s.%s.%s.%s.out' % (Ne ,myseed, theta, rho, seqbp , time, f, f, wAA, wAa, waa, tmp_dir, f*100,s*100,h*100,t/1000,r )
 os.system(cmdl0)
 #
 
@@ -89,14 +94,14 @@ cmdl8='./standardize_xpehh.py  ./xpehh.tennessen %s/myout.%s.%s.%s.%s.%s.xpehh >
 os.system(cmdl8)
 
 # summarize 
-cmdl9='./msms_sims_stats_summary_singlerep.py  %s/myout.%s.%s.%s.%s.%s.out  %s/myout.%s.%s.%s.%s.%s.out.stats %s/myout.%s.%s.%s.%s.%s.ihs.pop2.stdz %s/myout.%s.%s.%s.%s.%s.xpehh.stdz  %s/myout.%s.%s.%s.%s.%s.out.stats.extreme.hits > %s/myout.%s.%s.%s.%s.%s.out.summary %s %s %s %s %s ' % (myuniqname + myuniqname + myuniqname + myuniqname + myuniqname + myuniqname + myinputparameters)
+cmdl9='./msms_sims_stats_summary_singlerep.py  %s/myout.%s.%s.%s.%s.%s.out  %s/myout.%s.%s.%s.%s.%s.out.stats %s/myout.%s.%s.%s.%s.%s.ihs.pop2.stdz %s/myout.%s.%s.%s.%s.%s.xpehh.stdz  %s/myout.%s.%s.%s.%s.%s.out.stats.extreme.hits > %s/myout.%s.%s.%s.%s.%s.out.summary %s %s %s %s %s %s' % (myuniqname + myuniqname + myuniqname + myuniqname + myuniqname + myuniqname + myinputparameters) 
 os.system(cmdl9)
 
 cpsummary='cp  %s/myout.%s.%s.%s.%s.%s.out.summary ' % (myuniqname)
 cpsummary+=outputdir
 os.system(cpsummary) 
 
-#cpline='cp -r %s  /lustre/scratch113/teams/tyler-smith/users/cv1/scripts/hd_snpindels/REVISION/msms/msms/simsgra' % (tmp_dir) 
+#cpline='cp -r %s ./' % (tmp_dir) 
 #os.system(cpline) 
 
 shutil.rmtree(tmp_dir)  

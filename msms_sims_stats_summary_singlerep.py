@@ -16,6 +16,11 @@ s=float(sys.argv[7])
 h=float(sys.argv[8])
 t=float(sys.argv[9])
 r=sys.argv[10]
+seqbp=int(sys.argv[11])
+
+# gets the position of the site under selection
+# which is halfway through our sequence
+selpos=seqbp/2
 
 #myres=[f,s,h,t,r]
 seed=None
@@ -45,31 +50,33 @@ for line in file1:
 	x=line.split()
 	if not re.search ('fst', line): fst[int(x[0])]=float(x[5])  	
 	if not re.search ('pos', line) : 
-		if int(x[0]) ==125000:
-			accepted='1'
+		if int(x[0]) ==selpos:
+			accepted='y'
 			frqpop2=x[2]
 			ddaf=x[3]
-if 125000 in fst:  # the site under selection has been accepted by the filter
+if selpos in fst:  # the site under selection has been accepted by the filter
 	for fi in fst: # find the max and see if it is @ position under selection
 		if fst[fi]== max(fst.values()) :
-			if int(fi)==125000:
+			if int(fi)==selpos:
 				fstmax='y'
-else: quit()
+else:
+    #print "site filtered out"
+    quit()
 		
-###################################  conta quante volte ihs e max a 125000 #####################
+###################################  conta quante volte ihs e max a selpos #####################
 
 file4=open(ihspop2file, 'r') 
 ihs2={}
 for line in file4:
 	x=line.rstrip().split()
 	ihs2[int(x[1])]=float(x[-1]) 
-	if int(x[1]) ==125000:
+	if int(x[1]) ==selpos:
 		ihsacc='1'
 		ihsv=x[-1]
-if 125000 in ihs2: 
+if selpos in ihs2: 
 	for ih in ihs2:
 		if ihs2[ih]== max(ihs2.values()) :
-			if int(ih)==125000:
+			if int(ih)==selpos:
 				ihsmax='y'
 
 ########################################################################################################
@@ -79,21 +86,21 @@ xpehh={}
 for line in file5:
 	x=line.rstrip().split()
 	xpehh[int(x[1])]=float(x[-1])
-	if int(x[1]) ==125000:
+	if int(x[1]) ==selpos:
 		xpehhacc='1'
 		xpehhv=x[-1]
-if 125000 in xpehh:
+if selpos in xpehh:
 	for xp in xpehh:
 		if xpehh[xp]== max(xpehh.values()) :
-			if int(xp)==125000:
+			if int(xp)==selpos:
 				xpehhmax='y'
 
-####################################   conta quante volte hdsite e a 1250000 ###############
+####################################   conta quante volte hdsite e a selpos0 ###############
 
 file2=open(hdhitsfile, 'r')
 count=0
 for line in file2: 
-	if re.match('125000', line): count+=1
+	if re.match(str(selpos), line): count+=1
 
 if count>0:
 	hd='y'
