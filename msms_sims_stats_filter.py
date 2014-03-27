@@ -14,7 +14,7 @@ def all_pairs(seq):
 
 
 infile=sys.argv[1]
-sizebp=sys.argv[2]
+#sizebp=sys.argv[2]
 
 myfile=open(infile).readlines()
 
@@ -26,6 +26,7 @@ for site  in positions: freq[site]={}
 popsize={}
 cmdl=myfile[0].split()
 npop=int(cmdl[cmdl.index('-I') +1] )
+sizebp=int(cmdl[cmdl.index('-r') +2] )
 for pop in range(npop): 
 	popsize[pop]=int(cmdl[cmdl.index('-I')+2+pop] )
 

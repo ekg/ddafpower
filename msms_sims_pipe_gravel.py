@@ -14,7 +14,7 @@ f=float(sys.argv[1])
 s=float(sys.argv[2]) 
 h=float(sys.argv[3]) 
 t=float(sys.argv[4])
-r=int(sys.argv[5])
+r=sys.argv[5]
 outputdir=sys.argv[6]
  
 myinputparameters=(f,s,h,t,r)
@@ -51,7 +51,7 @@ cmdl1='./generate_haplotypefiles.py  %s/myout.%s.%s.%s.%s.%s.out ' % (myuniqname
 os.system(cmdl1)
 
 # simstats 
-hdcmdl1='./msms_sims_stats_filter.py %s/myout.%s.%s.%s.%s.%s.out  250000 > %s/myout.%s.%s.%s.%s.%s.out.stats' % ( myuniqname + myuniqname )  #(tmp_dir, f*100,s*100,h*100,t/1000,r, tmp_dir, f*100,s*100,h*100,t/1000,r)
+hdcmdl1='./msms_sims_stats_filter.py %s/myout.%s.%s.%s.%s.%s.out > %s/myout.%s.%s.%s.%s.%s.out.stats' % ( myuniqname + myuniqname )  #(tmp_dir, f*100,s*100,h*100,t/1000,r, tmp_dir, f*100,s*100,h*100,t/1000,r)
 #print hdcmdl1
 os.system(hdcmdl1)
 
@@ -66,7 +66,7 @@ hdcmdl3='./hd5_and_hit_thresh_msms_sims.py 1000 0.70 %s/myout.%s.%s.%s.%s.%s.out
 os.system(hdcmdl3)
 
 # msms2xpehh recombination maps 
-cmdl4='./generate_recombination_maps.py  %s/myout.%s.%s.%s.%s.%s.out.stats > %s/myout.%s.%s.%s.%s.%s.out.map' % (myuniqname + myuniqname ) #(tmp_dir, f*100,s*100,h*100,t/1000,r, tmp_dir, f*100,s*100,h*100,t/1000,r)
+cmdl4='./generate_recombination_maps.py  %s/myout.%s.%s.%s.%s.%s.out > %s/myout.%s.%s.%s.%s.%s.out.map' % (myuniqname + myuniqname ) #(tmp_dir, f*100,s*100,h*100,t/1000,r, tmp_dir, f*100,s*100,h*100,t/1000,r)
 #print cmdl4
 os.system(cmdl4) 
 

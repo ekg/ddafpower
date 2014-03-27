@@ -13,7 +13,7 @@ f=float(sys.argv[1])
 s=float(sys.argv[2]) 
 h=float(sys.argv[3]) 
 t=float(sys.argv[4])
-r=int(sys.argv[5])
+r=sys.argv[5]
  
 myinputparameters=(f,s,h,t,r)
 
